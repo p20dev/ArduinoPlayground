@@ -1,0 +1,19 @@
+# Arduino build output
+build/
+*.elf
+*.hex
+*.bin
+*.eep
+*.map
+
+# Arduino IDE / CLI local state
+.arduinoIDE/
+.arduino15/
+sketch.yaml
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
