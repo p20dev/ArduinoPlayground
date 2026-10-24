@@ -1,4 +1,4 @@
-// SOS in Morse code on a standard ATmega328P Arduino-compatible board.
+// SOS in Morse code on the UNO R3-compatible ATmega328P/CH340 board.
 // S = ...  O = ---  S = ...
 
 constexpr unsigned long UNIT_MS = 200;

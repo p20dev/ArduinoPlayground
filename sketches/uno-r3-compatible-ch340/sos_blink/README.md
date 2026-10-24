@@ -14,7 +14,7 @@ En tidsenhed er 200 ms:
 ## Kompilering
 
 ```powershell
-arduino-cli compile --fqbn arduino:avr:uno sketches/atmega328p-ch340/sos_blink
+arduino-cli compile --fqbn arduino:avr:uno sketches/uno-r3-compatible-ch340/sos_blink
 ```
 
 ## Upload
@@ -23,6 +23,6 @@ Boardet blev registreret på `COM8` med en 115200-baud Optiboot-kompatibel
 bootloader:
 
 ```powershell
-arduino-cli upload --port COM8 --fqbn arduino:avr:uno sketches/atmega328p-ch340/sos_blink
+arduino-cli upload --port COM8 --fqbn arduino:avr:uno sketches/uno-r3-compatible-ch340/sos_blink
 ```
 

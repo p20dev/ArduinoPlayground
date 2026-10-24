@@ -1,26 +1,32 @@
-# ATmega328P + CH340 Arduino-kompatibelt board
+# UNO R3-kompatibelt CH340-board
 
 ## Identifikation
 
 | Felt | Verificeret værdi |
 | --- | --- |
 | Aktuel port | `COM8` |
+| Formfaktor | Arduino UNO R3-kompatibel |
 | USB-serielchip | WCH CH340 |
+| USB-stik | Micro-USB |
 | USB-ID | `VID 1A86 / PID 7523` |
-| Mikrocontroller | ATmega328P |
+| Mikrocontroller | ATmega328P-AU, loddet TQFP-32 |
 | MCU-signatur | `1E 95 0F` |
 | Bootloaderprotokol | STK500v1/Arduino |
 | Uploadhastighed | 115200 baud |
 | Anvendt Arduino CLI FQBN | `arduino:avr:uno` |
 
 Identiteten blev kontrolleret skrivebeskyttet med `avrdude`; flashhukommelsen
-blev ikke ændret. CH340 og denne bootloaderkombination bruges både på UNO
-R3-kloner og nyere Nano-kloner. Den præcise formfaktor kan derfor kun afgøres
-ud fra boardets fysiske layout eller silketryk.
+blev ikke ændret. Fotos af boardet bekræfter UNO R3-formfaktoren, standard
+shield-headerlayoutet og ATmega328P-AU-mærkningen.
+
+Boardet er en kompatibel klon, ikke et officielt Arduino UNO R3. De synlige
+forskelle omfatter CH340 og Micro-USB i stedet for det officielle boards
+ATmega16U2 og USB-B samt en loddet SMD-mikrocontroller i stedet for en udskiftelig
+DIP-chip. Det har desuden en ekstra 3×4 breakout-header til RX/TX, I²C og strøm.
 
 ## Out-of-the-box
 
-Et standard Arduino-kompatibelt ATmega328P-board tilbyder:
+Boardet tilbyder:
 
 - bruger-LED på D13;
 - digitale ind- og udgange;
@@ -30,31 +36,31 @@ Et standard Arduino-kompatibelt ATmega328P-board tilbyder:
 - eksterne interrupts og pin-change interrupts;
 - hardwaretimere, watchdog og 1 KB ikke-flygtig EEPROM.
 
-Boardet har normalt ingen indbyggede sensorer, Wi-Fi eller Bluetooth. Antallet
-af analoge pins og strømforsyningsmuligheder afhænger af, om den fysiske model
-er UNO-, Nano- eller en anden ATmega328P-kompatibel variant.
+Boardet har ingen indbyggede sensorer, Wi-Fi eller Bluetooth.
 
 ## Typiske MCU-data
 
 | Egenskab | Værdi |
 | --- | --- |
 | Arkitektur | 8-bit AVR |
-| Typisk clock | 16 MHz |
+| Clock | 16 MHz |
 | Flash | 32 KB, inklusive bootloader |
 | SRAM | 2 KB |
 | EEPROM | 1 KB |
 | ADC | 10-bit |
 | Timere | 2 × 8-bit og 1 × 16-bit |
-| Typisk logikniveau | 5 V; kontrollér altid boardets mærkning |
+| Logikniveau | 5 V |
+| Digitale I/O | 14 |
+| Analoge indgange | 6 |
+| PWM-udgange | 6 |
 
 ## Sketches i dette repo
 
-- [`sos_blink`](../../sketches/atmega328p-ch340/sos_blink) – blinker SOS i
+- [`sos_blink`](../../sketches/uno-r3-compatible-ch340/sos_blink) – blinker SOS i
   morsekode med den standardmæssige indbyggede LED
 
 ## Kilder
 
 - [Arduino UNO R3 hardware documentation](https://docs.arduino.cc/hardware/uno-rev3/)
-- [Arduino Nano hardware documentation](https://docs.arduino.cc/hardware/nano/)
 - [Arduino AVR core board definitions](https://github.com/arduino/ArduinoCore-avr/blob/master/boards.txt)
 - [ATmega328P datasheet](https://docs.arduino.cc/resources/datasheets/ATmega328P-datasheet.pdf)
