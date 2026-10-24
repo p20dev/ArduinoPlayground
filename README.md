@@ -7,7 +7,14 @@ Repoet registrerer både Arduino-boards og de eksterne input/output-enheder, der
 tilsluttes dem. Boardprofiler ligger i `boards/`, enhedsprofiler i `devices/`,
 og hver enhedsprofil linker til de sketches, hvor enheden bruges.
 
-## Mine boards
+## Boards
+
+| Board | Primær MCU | Flash / SRAM | I/O | Trådløst og særlige onboard-funktioner | Arduino CLI FQBN |
+| --- | --- | --- | --- | --- | --- |
+| [Arduino Mega 2560 Rev3](boards/arduino-mega-2560/README.md) | ATmega2560, 16 MHz AVR | 256 KB / 8 KB | 54 digitale, 15 PWM, 16 analoge, 4 UART | Ingen trådløst; D13-LED | `arduino:avr:mega` |
+| [Arduino UNO R4 WiFi](boards/arduino-uno-r4-wifi/README.md) | Renesas RA4M1, 48 MHz Cortex-M4 | 256 KB / 32 KB | GPIO, PWM, ADC, DAC, UART, I²C, SPI og CAN | Wi-Fi, BLE, 12×8 LED-matrix, RTC og Qwiic | `arduino:renesas_uno:unor4wifi` |
+| [Arduino UNO R4 Minima](boards/arduino-uno-r4-minima/README.md) | Renesas RA4M1, 48 MHz Cortex-M4 | 256 KB / 32 KB | GPIO, PWM, ADC, DAC, UART, I²C, SPI og CAN | Ingen trådløst; D13-LED, RTC og USB HID | `arduino:renesas_uno:minima` |
+| [UNO R3-kompatibelt CH340-board](boards/uno-r3-compatible-ch340/README.md) | ATmega328P-AU, 16 MHz AVR | 32 KB / 2 KB | 14 digitale, 6 PWM og 6 analoge | Ingen trådløst; D13-LED og CH340 USB-seriel | `arduino:avr:uno` |
 
 ### Arduino Mega 2560 Rev3
 
