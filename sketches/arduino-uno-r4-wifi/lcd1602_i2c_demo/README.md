@@ -7,7 +7,7 @@ PCF8574/PCF8574A I²C-backpack. Demoen viser:
 - brugerdefinerede hjerte-, smiley- og rakettegn;
 - tekstkort, der skifter på stedet uden vandret scrolling;
 - en animeret 16-kanals "BYTE BEATS"-equalizer;
-- en hoppende pixel, der udnytter displayets 80×16 individuelle pixelpositioner;
+- tydelig "PIXEL PONG" med en 3×3 pixel-bold og paddles;
 - animeret digital "PIXEL RAIN" med dynamiske brugerdefinerede tegn;
 - oppetid og spinner.
 

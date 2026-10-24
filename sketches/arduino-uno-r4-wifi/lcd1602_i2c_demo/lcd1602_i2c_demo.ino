@@ -194,50 +194,47 @@ void equalizerDemo() {
   lcdCreateChar(2, rocket);
 }
 
-void bouncingPixelDemo() {
+void pixelPongDemo() {
+  const byte ball[8] = {
+    B00000, B00000, B01110, B01110, B01110, B00000, B00000, B00000
+  };
+  lcdCreateChar(4, ball);
+
   lcdClear();
   lcdSetCursor(0, 0);
-  printPadded(" BOUNCING PIXEL");
+  printPadded("   PIXEL PONG");
   lcdSetCursor(0, 1);
-  printPadded("     80x16");
+  printPadded("   READY? GO!");
   delay(900);
   lcdClear();
 
-  int x = 2;
-  int y = 2;
-  int dx = 2;
-  int dy = 1;
-  int previousColumn = -1;
-  int previousRow = -1;
+  for (uint8_t row = 0; row < LCD_ROWS; ++row) {
+    lcdSetCursor(0, row);
+    lcdWrite('|');
+    lcdSetCursor(15, row);
+    lcdWrite('|');
+  }
 
-  for (uint8_t frame = 0; frame < 150; ++frame) {
-    if (previousColumn >= 0) {
-      lcdSetCursor(previousColumn, previousRow);
-      lcdWrite(' ');
+  int column = 1;
+  int direction = 1;
+  uint8_t row = 0;
+
+  for (uint8_t frame = 0; frame < 84; ++frame) {
+    lcdSetCursor(column, row);
+    lcdWrite(' ');
+
+    column += direction;
+    if (column >= 14 || column <= 1) {
+      column = constrain(column, 1, 14);
+      direction = -direction;
+      row = 1 - row;
+    } else if (frame % 9 == 0) {
+      row = 1 - row;
     }
 
-    byte pixel[8] = {0, 0, 0, 0, 0, 0, 0, 0};
-    pixel[y % 8] = 1 << (4 - (x % 5));
-    lcdCreateChar(4, pixel);
-
-    int column = x / 5;
-    int row = y / 8;
     lcdSetCursor(column, row);
     lcdWrite(4);
-    previousColumn = column;
-    previousRow = row;
-
-    x += dx;
-    y += dy;
-    if (x <= 0 || x >= 79) {
-      x = constrain(x, 0, 79);
-      dx = -dx;
-    }
-    if (y <= 0 || y >= 15) {
-      y = constrain(y, 0, 15);
-      dy = -dy;
-    }
-    delay(35);
+    delay(90);
   }
 }
 
@@ -326,7 +323,7 @@ void loop() {
 
   messageCardsDemo();
   equalizerDemo();
-  bouncingPixelDemo();
+  pixelPongDemo();
   pixelRainDemo();
   uptimeDemo();
 }
