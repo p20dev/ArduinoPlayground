@@ -3,6 +3,10 @@
 En samling af Arduino-sketches, eksperimenter og profiler til forskellige
 boards.
 
+Repoet registrerer både Arduino-boards og de eksterne input/output-enheder, der
+tilsluttes dem. Boardprofiler ligger i `boards/`, enhedsprofiler i `devices/`,
+og hver enhedsprofil linker til de sketches, hvor enheden bruges.
+
 ## Mine boards
 
 ### Arduino UNO R4 WiFi
@@ -58,13 +62,17 @@ i [`boards/uno-r3-compatible-ch340`](boards/uno-r3-compatible-ch340/README.md).
 
 ## Projektstruktur
 
-Boards og sketches bruger samme stabile board-id:
+Boards og sketches bruger samme stabile board-id. Eksterne enheder har deres
+eget stabile device-id:
 
 ```text
 boards/
   arduino-uno-r4-minima/
     README.md
   arduino-uno-r4-wifi/
+    README.md
+devices/
+  lcd1602-i2c-pcf8574/
     README.md
 sketches/
   arduino-uno-r4-minima/
@@ -77,6 +85,21 @@ sketches/
 Hver sketch ligger i sin egen mappe, og mappen og den primære `.ino`-fil har
 samme navn, så den kan åbnes direkte i Arduino IDE. Board-specifik
 dokumentation, forbindelser og biblioteker beskrives ved den enkelte sketch.
+
+## Eksterne input/output-enheder
+
+### LCD1602 med PCF8574T I²C-backpack
+
+- **Type:** 16×2 HD44780-kompatibelt tegndisplay
+- **Retning:** output
+- **Interface:** I²C via PCF8574T
+- **Forsyning i projektet:** 5 V
+- **Brugt med:** Arduino UNO R4 WiFi
+- **Sketch:** [`lcd1602_i2c_demo`](sketches/arduino-uno-r4-wifi/lcd1602_i2c_demo)
+
+Pinout, adresseoplysninger, praktiske noter og den samlede sketch-liste findes i
+[`devices/lcd1602-i2c-pcf8574`](devices/lcd1602-i2c-pcf8574/README.md). Det
+samlede enhedsindeks findes i [`devices/`](devices/README.md).
 
 ## Sketches
 
@@ -101,9 +124,14 @@ dokumentation, forbindelser og biblioteker beskrives ved den enkelte sketch.
 - [`sos_blink`](sketches/uno-r3-compatible-ch340/sos_blink) – SOS i morsekode på den
   standardmæssige D13-LED
 
-## Tilføjelse af flere boards
+## Tilføjelse af flere boards og enheder
 
 Nye boards får en profil under `boards/<board-id>/` og deres sketches placeres
 under `sketches/<board-id>/`. Board-id skrives med små bogstaver og bindestreger,
 eksempelvis `arduino-uno-r4-wifi`.
+
+Nye eksterne enheder får en profil under `devices/<device-id>/`. Profilen skal
+beskrive identifikation, pinout og elektriske hensyn samt linke til alle
+sketches, der bruger enheden. Både dette README og `devices/README.md` holdes
+opdateret, når nye enheder tilføjes.
 

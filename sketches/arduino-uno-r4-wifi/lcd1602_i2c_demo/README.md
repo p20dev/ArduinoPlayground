@@ -1,7 +1,12 @@
 # LCD1602 I²C-demo
 
 En effekt-demo til et HD44780-kompatibelt 16×2-tegndisplay med den almindelige
-PCF8574/PCF8574A I²C-backpack. Demoen viser:
+PCF8574/PCF8574A I²C-backpack.
+
+Enhedens samlede hardwareprofil findes under
+[`devices/lcd1602-i2c-pcf8574`](../../../devices/lcd1602-i2c-pcf8574/README.md).
+
+Demoen viser:
 
 - animeret opstart og blink med baggrundsbelysningen;
 - brugerdefinerede hjerte-, smiley- og rakettegn;
