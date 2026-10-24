@@ -143,6 +143,8 @@ samlede enhedsindeks findes i [`devices/`](devices/README.md).
   – fast løbetekst på matrixen
 - [`wifi_matrix_message_board`](sketches/arduino-uno-r4-wifi/wifi_matrix_message_board)
   – browserstyret løbetekst via Wi-Fi
+- [`wifi_matrix_status`](sketches/arduino-uno-r4-wifi/wifi_matrix_status) – forbinder
+  til et hotspot og viser forbindelse samt signalstyrke på LED-matrixen
 - [`lcd1602_i2c_demo`](sketches/arduino-uno-r4-wifi/lcd1602_i2c_demo) – effekt-demo
   til et eksternt 16×2 HD44780-display med PCF8574 I²C-backpack
 
