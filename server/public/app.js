@@ -16,8 +16,11 @@ function escapeHtml(value) {
 
 async function refresh() {
   try {
+    const dashboardRequest = { headers: { "X-Monitor-Request": "dashboard" } };
     const [healthResponse, payloadResponse, activityResponse] = await Promise.all([
-      fetch("/api/health"), fetch("/api/payloads"), fetch("/api/activity"),
+      fetch("/api/health", dashboardRequest),
+      fetch("/api/payloads", dashboardRequest),
+      fetch("/api/activity", dashboardRequest),
     ]);
     if (![healthResponse, payloadResponse, activityResponse].every((response) => response.ok)) {
       throw new Error("Serveren returnerede en fejl");
@@ -31,12 +34,19 @@ async function refresh() {
     elements.apiCount.textContent = activity.filter((event) => event.source === "api").length;
     elements.serverCount.textContent = activity.filter((event) => event.source === "server").length;
     elements.payloads.textContent = JSON.stringify(payloads, null, 2);
-    elements.activity.innerHTML = activity.slice(0, 30).map((event) => `
+    elements.activity.innerHTML = activity.slice(0, 30).map((event) => {
+      const caller = event.detail.caller;
+      const callerName = caller?.deviceId || caller?.clientName || caller?.ip || "ukendt";
+      const detail = { ...event.detail };
+      delete detail.caller;
+      return `
       <div class="event">
         <span class="source">${escapeHtml(event.source)}</span>
         <span class="time">${new Date(event.timestamp).toLocaleTimeString("da-DK")}</span>
-        <span class="detail"><strong>${escapeHtml(event.action)}</strong> ${escapeHtml(JSON.stringify(event.detail))}</span>
-      </div>`).join("") || "<p>Ingen hændelser endnu.</p>";
+        <span class="caller">${escapeHtml(callerName)}</span>
+        <span class="detail"><strong>${escapeHtml(event.action)}</strong> ${escapeHtml(JSON.stringify(detail))}</span>
+      </div>`;
+    }).join("") || "<p>Ingen eksterne API-hændelser endnu.</p>";
   } catch (error) {
     elements.health.textContent = "Server offline";
     elements.health.className = "status";

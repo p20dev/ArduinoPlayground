@@ -47,5 +47,17 @@ Eksempel på body til `POST`:
 }
 ```
 
+Boardet bør identificere sig på alle kald. Aktivitetsdashboardet prioriterer
+`X-Device-ID`, derefter `X-Client-Name` og til sidst klientens IP-adresse:
+
+```text
+X-Device-ID: uno-r4-wifi-01
+X-Client-Name: wifi-status-sketch
+```
+
+Dashboardets egne forespørgsler markeres internt og gemmes ikke i
+aktivitetsloggen. GET-kald uden `X-Device-ID` eller `X-Client-Name` udelades
+også, så anonyme dashboard- og overvågningskald ikke overdøver boardtrafikken.
+
 WiFi-oplysningerne ligger kun i den lokale `.env` til brug for den kommende
 board-sketch. De sendes ikke til browseren eller API-klienter.

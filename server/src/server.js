@@ -21,6 +21,27 @@ function record(source, action, detail = {}) {
   activity.splice(200);
 }
 
+function identifyCaller(req) {
+  const forwardedFor = req.get("x-forwarded-for")?.split(",")[0]?.trim();
+  return {
+    deviceId: req.get("x-device-id") ?? null,
+    clientName: req.get("x-client-name") ?? null,
+    ip: forwardedFor ?? req.ip,
+    userAgent: req.get("user-agent") ?? null,
+  };
+}
+
+function isDashboardRequest(req) {
+  if (req.get("x-monitor-request") === "dashboard") return true;
+  const referer = req.get("referer");
+  if (!referer) return false;
+  try {
+    return new URL(referer).host === req.get("host");
+  } catch {
+    return false;
+  }
+}
+
 async function loadPayloads() {
   try {
     payloads = JSON.parse(await fs.readFile(dataFile, "utf8"));
@@ -45,9 +66,14 @@ function requireBearer(req, res, next) {
   const expected = Buffer.from(bearerToken);
   const actual = Buffer.from(supplied);
   if (expected.length !== actual.length || !crypto.timingSafeEqual(expected, actual)) {
-    record("api", "auth_failed", { method: req.method, path: req.path });
+    record("api", "auth_failed", {
+      method: req.method,
+      path: req.path,
+      caller: identifyCaller(req),
+    });
     return res.status(401).json({ error: "A valid bearer token is required" });
   }
+  req.apiAuthenticated = true;
   next();
 }
 
@@ -55,9 +81,22 @@ const app = express();
 app.disable("x-powered-by");
 app.use(express.json({ limit: "64kb" }));
 app.use((req, res, next) => {
-  if (req.path.startsWith("/api/") && !["/api/activity", "/api/health"].includes(req.path)) {
+  const hasNamedCaller = Boolean(req.get("x-device-id") || req.get("x-client-name"));
+  const isRelevantRequest = req.method !== "GET" || hasNamedCaller;
+  if (
+    req.path.startsWith("/api/") &&
+    isRelevantRequest &&
+    !isDashboardRequest(req) &&
+    !["/api/activity", "/api/health"].includes(req.path)
+  ) {
     res.on("finish", () => {
-      record("api", "request", { method: req.method, path: req.path, status: res.statusCode });
+      record("api", "request", {
+        method: req.method,
+        path: req.path,
+        status: res.statusCode,
+        authenticated: Boolean(req.apiAuthenticated),
+        caller: identifyCaller(req),
+      });
     });
   }
   next();
@@ -87,7 +126,7 @@ app.post("/api/payloads", requireBearer, async (req, res, next) => {
     };
     payloads.push(payload);
     await persistPayloads();
-    record("api", "created", { id: payload.id, topic: payload.topic });
+    record("api", "created", { id: payload.id, topic: payload.topic, caller: identifyCaller(req) });
     res.status(201).json(payload);
   } catch (error) {
     next(error);
@@ -105,7 +144,11 @@ app.patch("/api/payloads/:id", requireBearer, async (req, res, next) => {
       updatedAt: new Date().toISOString(),
     };
     await persistPayloads();
-    record("api", "updated", { id: req.params.id, topic: payloads[index].topic });
+    record("api", "updated", {
+      id: req.params.id,
+      topic: payloads[index].topic,
+      caller: identifyCaller(req),
+    });
     res.json(payloads[index]);
   } catch (error) {
     next(error);
@@ -118,7 +161,7 @@ app.delete("/api/payloads/:id", requireBearer, async (req, res, next) => {
     if (index === -1) return res.status(404).json({ error: "Payload not found" });
     const [removed] = payloads.splice(index, 1);
     await persistPayloads();
-    record("api", "deleted", { id: removed.id, topic: removed.topic });
+    record("api", "deleted", { id: removed.id, topic: removed.topic, caller: identifyCaller(req) });
     res.status(204).end();
   } catch (error) {
     next(error);
