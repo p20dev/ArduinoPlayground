@@ -95,7 +95,10 @@ app.use((req, res, next) => {
     !["/api/activity", "/api/health"].includes(req.path)
   ) {
     res.on("finish", () => {
-      record("api", "request", requestDetails(req, res.statusCode));
+      record("api", "request", {
+        ...requestDetails(req, res.statusCode),
+        ...res.locals.activityDetail,
+      });
     });
   }
   next();
@@ -125,6 +128,7 @@ app.post("/api/payloads", requireBearer, async (req, res, next) => {
     };
     payloads.push(payload);
     await persistPayloads();
+    res.locals.activityDetail = { payload };
     res.status(201).json(payload);
   } catch (error) {
     next(error);
@@ -142,6 +146,7 @@ app.patch("/api/payloads/:id", requireBearer, async (req, res, next) => {
       updatedAt: new Date().toISOString(),
     };
     await persistPayloads();
+    res.locals.activityDetail = { payload: payloads[index] };
     res.json(payloads[index]);
   } catch (error) {
     next(error);
@@ -154,6 +159,7 @@ app.delete("/api/payloads/:id", requireBearer, async (req, res, next) => {
     if (index === -1) return res.status(404).json({ error: "Payload not found" });
     const [removed] = payloads.splice(index, 1);
     await persistPayloads();
+    res.locals.activityDetail = { payload: removed };
     res.status(204).end();
   } catch (error) {
     next(error);

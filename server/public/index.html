@@ -26,7 +26,39 @@
       <section class="panel">
         <div class="panel-heading">
           <div><p class="eyebrow">Activity</p><h2>Latest requests</h2></div>
-          <button id="refresh" type="button">Refresh</button>
+          <div class="refresh-actions">
+            <label class="toggle"><input id="autoRefresh" type="checkbox" checked> Auto-refresh</label>
+            <button id="refresh" type="button">Refresh</button>
+          </div>
+        </div>
+        <div class="request-controls" aria-label="Request controls">
+          <label class="search-control">Search
+            <input id="requestSearch" type="search" placeholder="Device, path, method…">
+          </label>
+          <label>Method
+            <select id="methodFilter"><option value="all">All</option></select>
+          </label>
+          <label>Status
+            <select id="statusFilter">
+              <option value="all">All</option>
+              <option value="2">2xx</option><option value="3">3xx</option>
+              <option value="4">4xx</option><option value="5">5xx</option>
+            </select>
+          </label>
+          <label>Sort
+            <select id="requestSort">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="status-asc">Status: low to high</option>
+              <option value="status-desc">Status: high to low</option>
+            </select>
+          </label>
+          <label>Show
+            <select id="requestLimit">
+              <option value="10" selected>10</option><option value="25">25</option>
+              <option value="50">50</option><option value="100">100</option>
+            </select>
+          </label>
         </div>
         <fieldset class="column-picker">
           <legend>Visible columns</legend>
@@ -46,21 +78,23 @@
                 <th data-column="path">Path</th>
                 <th data-column="method">Method</th>
                 <th data-column="status">Status</th>
+                <th>Payload</th>
               </tr>
             </thead>
             <tbody id="activity"></tbody>
           </table>
         </div>
-      </section>
-
-      <section class="panel">
-        <div class="panel-heading">
-          <div><p class="eyebrow">API</p><h2>Payloads</h2></div>
-          <code>GET /api/payloads</code>
-        </div>
-        <pre id="payloads">Loading…</pre>
+        <p id="requestSummary" class="request-summary"></p>
       </section>
     </main>
+    <dialog id="payloadModal" class="payload-modal">
+      <div class="modal-heading">
+        <div><p class="eyebrow">Request payload</p><h2 id="payloadModalTitle">Payload details</h2></div>
+        <button id="closePayloadModal" type="button" aria-label="Close payload details">Close</button>
+      </div>
+      <dl id="payloadMeta" class="payload-meta"></dl>
+      <pre id="payloadDetails"></pre>
+    </dialog>
     <script src="/app.js"></script>
   </body>
 </html>
