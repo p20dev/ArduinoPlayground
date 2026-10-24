@@ -3,6 +3,9 @@
 En samling af Arduino-sketches, eksperimenter og profiler til forskellige
 boards.
 
+Repoet indeholder desuden en Docker Compose-baseret server til REST-payloads
+og et aktivitetsdashboard. Se [`server/`](server/README.md).
+
 Repoet registrerer både Arduino-boards og de eksterne input/output-enheder, der
 tilsluttes dem. Boardprofiler ligger i `boards/`, enhedsprofiler i `devices/`,
 og hver enhedsprofil linker til de sketches, hvor enheden bruges.

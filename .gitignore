@@ -11,6 +11,10 @@ build/
 .arduino15/
 sketch.yaml
 arduino_secrets.h
+.env
+
+# Local server data
+server/data/
 
 # Editors and operating systems
 .vscode/
