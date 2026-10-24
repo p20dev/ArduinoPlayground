@@ -31,6 +31,16 @@ function identifyCaller(req) {
   };
 }
 
+function requestDetails(req, status) {
+  return {
+    ...identifyCaller(req),
+    method: req.method,
+    path: req.path,
+    status,
+    authenticated: Boolean(req.apiAuthenticated),
+  };
+}
+
 function isDashboardRequest(req) {
   if (req.get("x-monitor-request") === "dashboard") return true;
   const referer = req.get("referer");
@@ -66,11 +76,6 @@ function requireBearer(req, res, next) {
   const expected = Buffer.from(bearerToken);
   const actual = Buffer.from(supplied);
   if (expected.length !== actual.length || !crypto.timingSafeEqual(expected, actual)) {
-    record("api", "auth_failed", {
-      method: req.method,
-      path: req.path,
-      caller: identifyCaller(req),
-    });
     return res.status(401).json({ error: "A valid bearer token is required" });
   }
   req.apiAuthenticated = true;
@@ -90,13 +95,7 @@ app.use((req, res, next) => {
     !["/api/activity", "/api/health"].includes(req.path)
   ) {
     res.on("finish", () => {
-      record("api", "request", {
-        method: req.method,
-        path: req.path,
-        status: res.statusCode,
-        authenticated: Boolean(req.apiAuthenticated),
-        caller: identifyCaller(req),
-      });
+      record("api", "request", requestDetails(req, res.statusCode));
     });
   }
   next();
@@ -126,7 +125,6 @@ app.post("/api/payloads", requireBearer, async (req, res, next) => {
     };
     payloads.push(payload);
     await persistPayloads();
-    record("api", "created", { id: payload.id, topic: payload.topic, caller: identifyCaller(req) });
     res.status(201).json(payload);
   } catch (error) {
     next(error);
@@ -144,11 +142,6 @@ app.patch("/api/payloads/:id", requireBearer, async (req, res, next) => {
       updatedAt: new Date().toISOString(),
     };
     await persistPayloads();
-    record("api", "updated", {
-      id: req.params.id,
-      topic: payloads[index].topic,
-      caller: identifyCaller(req),
-    });
     res.json(payloads[index]);
   } catch (error) {
     next(error);
@@ -161,7 +154,6 @@ app.delete("/api/payloads/:id", requireBearer, async (req, res, next) => {
     if (index === -1) return res.status(404).json({ error: "Payload not found" });
     const [removed] = payloads.splice(index, 1);
     await persistPayloads();
-    record("api", "deleted", { id: removed.id, topic: removed.topic, caller: identifyCaller(req) });
     res.status(204).end();
   } catch (error) {
     next(error);
@@ -174,8 +166,9 @@ app.use(express.static(publicDir));
 app.get(/.*/, (_req, res) => res.sendFile(path.join(publicDir, "index.html")));
 
 app.use((error, req, res, _next) => {
-  record("api", "error", { method: req.method, path: req.path, message: error.message });
-  res.status(error.type === "entity.parse.failed" ? 400 : 500).json({ error: error.message });
+  const status = error.type === "entity.parse.failed" ? 400 : 500;
+  record("api", "error", { ...requestDetails(req, status), message: error.message });
+  res.status(status).json({ error: error.message });
 });
 
 await loadPayloads();

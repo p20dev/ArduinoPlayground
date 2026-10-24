@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="da">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,24 +11,46 @@
       <header>
         <div>
           <p class="eyebrow">Arduino UNO R4 WiFi</p>
-          <h1>Serveraktivitet</h1>
-          <p>Live overblik over REST API-trafik fra Arduino-boardet.</p>
+          <h1>Server activity</h1>
+          <p>Live overview of REST API traffic from Arduino boards.</p>
         </div>
-        <div id="health" class="status">Forbinder…</div>
+        <div id="health" class="status">Connecting…</div>
       </header>
 
       <section class="metrics">
-        <article><span>Gemte payloads</span><strong id="payloadCount">–</strong></article>
-        <article><span>API-hændelser</span><strong id="apiCount">–</strong></article>
-        <article><span>Serverhændelser</span><strong id="serverCount">–</strong></article>
+        <article><span>Stored payloads</span><strong id="payloadCount">–</strong></article>
+        <article><span>API events</span><strong id="apiCount">–</strong></article>
+        <article><span>Server events</span><strong id="serverCount">–</strong></article>
       </section>
 
       <section class="panel">
         <div class="panel-heading">
-          <div><p class="eyebrow">Aktivitet</p><h2>Seneste hændelser</h2></div>
-          <button id="refresh" type="button">Opdatér</button>
+          <div><p class="eyebrow">Activity</p><h2>Latest requests</h2></div>
+          <button id="refresh" type="button">Refresh</button>
         </div>
-        <div id="activity" class="activity"></div>
+        <fieldset class="column-picker">
+          <legend>Visible columns</legend>
+          <label><input type="checkbox" data-column-toggle="deviceId" checked> Device ID</label>
+          <label><input type="checkbox" data-column-toggle="clientName" checked> Client name</label>
+          <label><input type="checkbox" data-column-toggle="path" checked> Path</label>
+          <label><input type="checkbox" data-column-toggle="method" checked> Method</label>
+          <label><input type="checkbox" data-column-toggle="status" checked> Status</label>
+        </fieldset>
+        <div class="activity-wrap">
+          <table class="activity-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th data-column="deviceId">Device ID</th>
+                <th data-column="clientName">Client name</th>
+                <th data-column="path">Path</th>
+                <th data-column="method">Method</th>
+                <th data-column="status">Status</th>
+              </tr>
+            </thead>
+            <tbody id="activity"></tbody>
+          </table>
+        </div>
       </section>
 
       <section class="panel">
@@ -36,7 +58,7 @@
           <div><p class="eyebrow">API</p><h2>Payloads</h2></div>
           <code>GET /api/payloads</code>
         </div>
-        <pre id="payloads">Indlæser…</pre>
+        <pre id="payloads">Loading…</pre>
       </section>
     </main>
     <script src="/app.js"></script>
