@@ -16,3 +16,9 @@ sketches/
 Board-specifik dokumentation, forbindelser og nødvendige biblioteker beskrives
 i en README ved den enkelte sketch.
 
+## Sketches
+
+- `led_matrix_demo` – animationer til UNO R4 WiFi-matrixen
+- `led_matrix_scrolling_text` – fast løbetekst på matrixen
+- `wifi_matrix_message_board` – browserstyret løbetekst via Wi-Fi
+

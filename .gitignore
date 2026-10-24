@@ -10,6 +10,7 @@ build/
 .arduinoIDE/
 .arduino15/
 sketch.yaml
+arduino_secrets.h
 
 # Editors and operating systems
 .vscode/
