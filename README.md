@@ -22,15 +22,36 @@ boards.
 Detaljer, identifikation og links findes i
 [`boards/arduino-uno-r4-wifi`](boards/arduino-uno-r4-wifi/README.md).
 
+### Arduino UNO R4 Minima
+
+- **Primær MCU:** Renesas RA4M1, 48 MHz Arm Cortex-M4
+- **Hukommelse:** 256 KB flash, 32 KB SRAM og 8 KB data flash
+- **Logikniveau:** 5 V
+- **Onboard:** bruger-LED på D13, RTC, 14-bit ADC, 12-bit DAC på A0, OPAMP,
+  USB HID og reset-knap
+- **Interfaces:** GPIO, PWM, UART, I²C, SPI, CAN, SWD/JTAG og USB-C
+- **Trådløst:** ingen Wi-Fi eller Bluetooth
+- **Sensorer:** ingen dedikerede miljø- eller bevægelsessensorer; MCU'en har
+  intern chiptemperaturmåling og kapacitiv touch-hardware
+- **Arduino CLI FQBN:** `arduino:renesas_uno:minima`
+
+Minima har ikke LED-matrix eller Qwiic-stik. CAN kræver en ekstern transceiver.
+Detaljer, identifikation og links findes i
+[`boards/arduino-uno-r4-minima`](boards/arduino-uno-r4-minima/README.md).
+
 ## Projektstruktur
 
 Boards og sketches bruger samme stabile board-id:
 
 ```text
 boards/
+  arduino-uno-r4-minima/
+    README.md
   arduino-uno-r4-wifi/
     README.md
 sketches/
+  arduino-uno-r4-minima/
+    README.md
   arduino-uno-r4-wifi/
     led_matrix_demo/
       led_matrix_demo.ino
@@ -50,6 +71,10 @@ dokumentation, forbindelser og biblioteker beskrives ved den enkelte sketch.
   – fast løbetekst på matrixen
 - [`wifi_matrix_message_board`](sketches/arduino-uno-r4-wifi/wifi_matrix_message_board)
   – browserstyret løbetekst via Wi-Fi
+
+### Arduino UNO R4 Minima
+
+- [Sketch-område](sketches/arduino-uno-r4-minima) – klar til kommende Minima-sketches
 
 ## Tilføjelse af flere boards
 
