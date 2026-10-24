@@ -156,6 +156,8 @@ Det samlede komponentindeks findes i [`components/`](components/README.md).
   – browserstyret løbetekst via Wi-Fi
 - [`wifi_matrix_status`](sketches/arduino-uno-r4-wifi/wifi_matrix_status) – forbinder
   til et hotspot og viser forbindelse samt signalstyrke på LED-matrixen
+- [`ds18b20_payload`](sketches/arduino-uno-r4-wifi/ds18b20_payload) – måler en
+  KS0023 DS18B20 og sender temperaturen til payload-serveren hvert 10. sekund
 - [`lcd1602_i2c_demo`](sketches/arduino-uno-r4-wifi/lcd1602_i2c_demo) – effekt-demo
   til et eksternt 16×2 HD44780-display med PCF8574 I²C-backpack
 

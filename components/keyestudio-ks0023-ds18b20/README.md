@@ -16,7 +16,11 @@
 
 `DAT` forbindes til en digital pin. Modulet indeholder den nødvendige
 pull-up-komponent; flere DS18B20-enheder kan dele samme 1-Wire-bus. Typiske
-biblioteker er `OneWire` og `DallasTemperature`. Ingen sketches endnu.
+biblioteker er `OneWire` og `DallasTemperature`.
+
+## Sketches
+
+- Arduino UNO R4 WiFi: [`ds18b20_payload`](../../sketches/arduino-uno-r4-wifi/ds18b20_payload) – måler hvert 10. sekund og sender temperaturen til payload-serveren.
 
 ## Kilde
 
