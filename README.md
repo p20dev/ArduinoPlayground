@@ -39,6 +39,22 @@ Minima har ikke LED-matrix eller Qwiic-stik. CAN kræver en ekstern transceiver.
 Detaljer, identifikation og links findes i
 [`boards/arduino-uno-r4-minima`](boards/arduino-uno-r4-minima/README.md).
 
+### ATmega328P + CH340 (UNO/Nano-kompatibelt)
+
+- **MCU:** ATmega328P, identificeret via signatur `1E 95 0F`
+- **USB-seriel:** WCH CH340, `VID 1A86 / PID 7523`
+- **Bootloader:** STK500v1/Optiboot-kompatibel ved 115200 baud
+- **Hukommelse:** 32 KB flash, 2 KB SRAM og 1 KB EEPROM
+- **Typiske interfaces:** GPIO, PWM, UART, I²C, SPI og 10-bit ADC
+- **Onboard:** normalt bruger-LED på D13 samt reset-knap
+- **Trådløst og sensorer:** ingen indbyggede
+- **Anvendt FQBN:** `arduino:avr:uno`
+
+USB-identiteten kan ikke skelne sikkert mellem en UNO R3-klon og en nyere
+Nano-klon. Profilen bruger derfor det verificerede hardwaregrundlag frem for et
+ugaranteret produktnavn. Detaljer findes i
+[`boards/atmega328p-ch340`](boards/atmega328p-ch340/README.md).
+
 ## Projektstruktur
 
 Boards og sketches bruger samme stabile board-id:
@@ -76,6 +92,11 @@ dokumentation, forbindelser og biblioteker beskrives ved den enkelte sketch.
 
 - [`sos_blink`](sketches/arduino-uno-r4-minima/sos_blink) – SOS i morsekode på
   den indbyggede LED
+
+### ATmega328P + CH340
+
+- [`sos_blink`](sketches/atmega328p-ch340/sos_blink) – SOS i morsekode på den
+  standardmæssige D13-LED
 
 ## Tilføjelse af flere boards
 
