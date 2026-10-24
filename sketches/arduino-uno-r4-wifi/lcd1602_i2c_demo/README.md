@@ -5,8 +5,10 @@ PCF8574/PCF8574A I²C-backpack. Demoen viser:
 
 - animeret opstart og blink med baggrundsbelysningen;
 - brugerdefinerede hjerte-, smiley- og rakettegn;
-- vandret løbetekst;
+- tekstkort, der skifter på stedet uden vandret scrolling;
 - en animeret 16-kanals "BYTE BEATS"-equalizer;
+- en hoppende pixel, der udnytter displayets 80×16 individuelle pixelpositioner;
+- animeret digital "PIXEL RAIN" med dynamiske brugerdefinerede tegn;
 - oppetid og spinner.
 
 Sketchen bruger kun `Wire`, som følger med Arduino-kernen. Den scanner selv
