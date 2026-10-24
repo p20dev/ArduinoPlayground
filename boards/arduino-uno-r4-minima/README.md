@@ -67,8 +67,8 @@ interne temperatursensor måler primært chiptemperaturen.
 
 ## Sketches i dette repo
 
-Der er endnu ingen Minima-specifikke sketches. Nye sketches placeres under
-[`sketches/arduino-uno-r4-minima`](../../sketches/arduino-uno-r4-minima).
+- [`sos_blink`](../../sketches/arduino-uno-r4-minima/sos_blink) – blinker SOS i
+  morsekode med den indbyggede LED
 
 ## Kilder
 

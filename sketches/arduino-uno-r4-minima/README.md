@@ -1,14 +1,18 @@
 # Sketches til Arduino UNO R4 Minima
 
-Der er endnu ingen Minima-specifikke sketches i projektet.
+## Tilgængelige sketches
+
+- [`sos_blink`](sos_blink) – blinker SOS i morsekode med den indbyggede LED
+
+## Struktur
 
 Hver ny sketch skal placeres i sin egen mappe, hvor mappen og `.ino`-filen har
 samme navn:
 
 ```text
 sketches/arduino-uno-r4-minima/
-  blink/
-    blink.ino
+  sos_blink/
+    sos_blink.ino
 ```
 
 Kompilér med:

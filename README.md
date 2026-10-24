@@ -74,7 +74,8 @@ dokumentation, forbindelser og biblioteker beskrives ved den enkelte sketch.
 
 ### Arduino UNO R4 Minima
 
-- [Sketch-område](sketches/arduino-uno-r4-minima) – klar til kommende Minima-sketches
+- [`sos_blink`](sketches/arduino-uno-r4-minima/sos_blink) – SOS i morsekode på
+  den indbyggede LED
 
 ## Tilføjelse af flere boards
 
