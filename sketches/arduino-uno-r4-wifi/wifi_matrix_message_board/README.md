@@ -42,7 +42,7 @@ arduino-cli lib install ArduinoGraphics
 ## Kompilering
 
 ```powershell
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi sketches/wifi_matrix_message_board
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi sketches/arduino-uno-r4-wifi/wifi_matrix_message_board
 ```
 
 ## Upload
@@ -50,6 +50,6 @@ arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi sketches/wifi_matrix_me
 Upload først efter godkendelse:
 
 ```powershell
-arduino-cli upload --port COM5 --fqbn arduino:renesas_uno:unor4wifi sketches/wifi_matrix_message_board
+arduino-cli upload --port COM5 --fqbn arduino:renesas_uno:unor4wifi sketches/arduino-uno-r4-wifi/wifi_matrix_message_board
 ```
 

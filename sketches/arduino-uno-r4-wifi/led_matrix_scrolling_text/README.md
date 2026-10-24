@@ -16,7 +16,7 @@ arduino-cli lib install ArduinoGraphics
 ## Kompilering
 
 ```powershell
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi sketches/led_matrix_scrolling_text
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi sketches/arduino-uno-r4-wifi/led_matrix_scrolling_text
 ```
 
 ## Upload
@@ -24,6 +24,6 @@ arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi sketches/led_matrix_scr
 Upload først efter godkendelse:
 
 ```powershell
-arduino-cli upload --port COM5 --fqbn arduino:renesas_uno:unor4wifi sketches/led_matrix_scrolling_text
+arduino-cli upload --port COM5 --fqbn arduino:renesas_uno:unor4wifi sketches/arduino-uno-r4-wifi/led_matrix_scrolling_text
 ```
 

@@ -18,7 +18,7 @@ Der kræves ingen ekstra komponenter eller biblioteker.
 ## Kompilering
 
 ```powershell
-arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi sketches/led_matrix_demo
+arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi sketches/arduino-uno-r4-wifi/led_matrix_demo
 ```
 
 ## Upload
@@ -26,6 +26,6 @@ arduino-cli compile --fqbn arduino:renesas_uno:unor4wifi sketches/led_matrix_dem
 Upload først efter godkendelse:
 
 ```powershell
-arduino-cli upload --port COM5 --fqbn arduino:renesas_uno:unor4wifi sketches/led_matrix_demo
+arduino-cli upload --port COM5 --fqbn arduino:renesas_uno:unor4wifi sketches/arduino-uno-r4-wifi/led_matrix_demo
 ```
 
