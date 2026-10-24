@@ -23,14 +23,13 @@ Hver fysisk komponenttype får sit eget stabile id og en mappe med:
 | <img src="keyestudio-ks0023-ds18b20/thumbnail.webp" width="120" alt="DS18B20-temperatursensor"> | [DS18B20-temperatursensor](keyestudio-ks0023-ds18b20/README.md) | Input/temperatur | 1-Wire | KS0023 | – |
 | <img src="keyestudio-ks0025-tilt/thumbnail.webp" width="120" alt="Tiltsensor"> | [Tiltsensor](keyestudio-ks0025-tilt/README.md) | Input/orientering | Digital | KS0025 | – |
 | <img src="keyestudio-ks0018-active-buzzer/thumbnail.webp" width="120" alt="Aktiv buzzer"> | [Aktiv buzzer](keyestudio-ks0018-active-buzzer/README.md) | Output/lyd | Digital | KS0018 | – |
-| <img src="keyes-ke2054-laser-emitter/thumbnail.webp" width="120" alt="Laser-emitter"> | [Laser-emitter](keyes-ke2054-laser-emitter/README.md) | Output/lys | Digital | KE2054 | – |
+| <img src="keyes-k855396-straw-hat-led/thumbnail.webp" width="120" alt="Straw-hat LED-modul"> | [Straw-hat LED-modul](keyes-k855396-straw-hat-led/README.md) | Output/lys | Digital/PWM | K855396 | – |
 | <img src="keyestudio-ks0014-analog-rotation/thumbnail.webp" width="120" alt="Analog rotationssensor"> | [Analog rotationssensor](keyestudio-ks0014-analog-rotation/README.md) | Input/position | Analog | KS0014 | – |
 | <img src="keyestudio-ks0029-push-button/thumbnail.webp" width="120" alt="Trykknap"> | [Trykknap](keyestudio-ks0029-push-button/README.md) | Input/kontakt | Digital | KS0029 | – |
 | <img src="keyestudio-ks0027-ir-transmitter/thumbnail.webp" width="120" alt="IR-sender"> | [IR-sender](keyestudio-ks0027-ir-transmitter/README.md) | Output/IR | Digital/PWM | KS0027 | – |
 | <img src="keyestudio-ks0019-passive-buzzer/thumbnail.webp" width="120" alt="Passiv buzzer"> | [Passiv buzzer](keyestudio-ks0019-passive-buzzer/README.md) | Output/lyd | Digital/tone | KS0019 | – |
 | <img src="keyestudio-ks0024-knock/thumbnail.webp" width="120" alt="Knock-sensor"> | [Knock-sensor](keyestudio-ks0024-knock/README.md) | Input/slag | Digital | KS0024 | – |
 | <img src="keyestudio-ks0038-reed-switch/thumbnail.webp" width="120" alt="Reed switch"> | [Reed switch](keyestudio-ks0038-reed-switch/README.md) | Input/magnet | Digital | KS0038 | – |
-| <img src="keyestudio-ks0015-pulse-rate/thumbnail.webp" width="120" alt="Pulssensor"> | [Pulssensor](keyestudio-ks0015-pulse-rate/README.md) | Input/optisk | Analog | KS0015 | – |
 | <img src="keyestudio-ks0037-vibration/thumbnail.webp" width="120" alt="Vibrationssensor"> | [Vibrationssensor](keyestudio-ks0037-vibration/README.md) | Input/vibration | Digital | KS0037 | – |
 | <img src="keyestudio-ks0028-photocell/thumbnail.webp" width="120" alt="Fotomodstandssensor"> | [Fotomodstandssensor](keyestudio-ks0028-photocell/README.md) | Input/lys | Analog | KS0028 | – |
 | <img src="keyestudio-ks0022-lm35/thumbnail.webp" width="120" alt="LM35-temperatursensor"> | [LM35-temperatursensor](keyestudio-ks0022-lm35/README.md) | Input/temperatur | Analog | KS0022 | – |

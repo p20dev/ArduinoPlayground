@@ -14,7 +14,7 @@ COMPONENTS_DIR = Path(__file__).resolve().parents[1] / "components"
 PHOTOS = {
     "keyestudio-ks0037-vibration": "IMG_20261024_203426885_HDR.jpg",
     "keyestudio-ks0019-passive-buzzer": "IMG_20261024_203440803_HDR.jpg",
-    "keyes-ke2054-laser-emitter": "IMG_20261024_203450304_HDR.jpg",
+    "keyes-k855396-straw-hat-led": "IMG_20261024_203450304_HDR.jpg",
     "keyestudio-ks0033-thermistor": "IMG_20261024_203506743_HDR.jpg",
     "keyestudio-ks0024-knock": "IMG_20261024_203515354_HDR.jpg",
     "keyestudio-ks0028-photocell": "IMG_20261024_203524523_HDR.jpg",
@@ -27,10 +27,13 @@ PHOTOS = {
     "keyestudio-ks0026-ir-receiver": "IMG_20261024_203723952_HDR.jpg",
     "keyestudio-ks0018-active-buzzer": "IMG_20261024_203734801_HDR.jpg",
     "keyestudio-ks0027-ir-transmitter": "IMG_20261024_203743461_HDR.jpg",
-    "keyestudio-ks0015-pulse-rate": "IMG_20261024_203754423_HDR.jpg",
     "keyestudio-ks0022-lm35": "IMG_20261024_203804368_HDR.jpg",
     "keyestudio-ks0021-collision": "IMG_20261024_203811921_HDR.jpg",
     "keyestudio-ks0032-rgb-led": "IMG_20261024_203820913_HDR.jpg",
+}
+
+SECONDARY_PHOTOS = {
+    "keyes-k855396-straw-hat-led": "IMG_20261024_203754423_HDR.jpg",
 }
 
 
@@ -82,6 +85,20 @@ def main() -> None:
                 destination / "thumbnail.webp", "WEBP", quality=90, method=6
             )
         print(f"{component}: {filename}")
+
+    for component, filename in SECONDARY_PHOTOS.items():
+        source = args.source_dir / filename
+        destination = COMPONENTS_DIR / component
+        with Image.open(source) as opened:
+            image = ImageOps.exif_transpose(opened).convert("RGB")
+            crop = crop_around_board(image)
+            fit(crop, (1400, 1050)).save(
+                destination / "image-2.webp", "WEBP", quality=90, method=6
+            )
+            fit(crop, (240, 180)).save(
+                destination / "thumbnail-2.webp", "WEBP", quality=90, method=6
+            )
+        print(f"{component} (secondary): {filename}")
 
 
 if __name__ == "__main__":
