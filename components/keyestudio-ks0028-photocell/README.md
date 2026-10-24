@@ -1,5 +1,7 @@
 # Keyestudio KS0028 fotomodstandssensor
 
+![Keyestudio KS0028 fotomodstandssensor](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

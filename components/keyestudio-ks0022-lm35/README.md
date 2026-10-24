@@ -1,5 +1,7 @@
 # Keyestudio KS0022 LM35-temperatursensor
 
+![Keyestudio KS0022 LM35-temperatursensor](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

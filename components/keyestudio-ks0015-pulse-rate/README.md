@@ -1,5 +1,7 @@
 # Keyestudio KS0015 pulssensor
 
+![Keyestudio KS0015 pulssensor](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

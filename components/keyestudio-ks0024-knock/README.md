@@ -1,5 +1,7 @@
 # Keyestudio KS0024 knock-sensor
 
+![Keyestudio KS0024 knock-sensor](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

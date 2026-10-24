@@ -1,5 +1,7 @@
 # Keyestudio KS0014 analog rotationssensor
 
+![Keyestudio KS0014 analog rotationssensor](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

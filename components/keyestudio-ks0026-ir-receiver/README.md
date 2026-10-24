@@ -1,5 +1,7 @@
 # Keyestudio KS0026 digital IR-modtager
 
+![Keyestudio KS0026 digital IR-modtager](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

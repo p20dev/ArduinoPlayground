@@ -1,5 +1,7 @@
 # Keyestudio KS0037 vibrationssensor
 
+![Keyestudio KS0037 vibrationssensor](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

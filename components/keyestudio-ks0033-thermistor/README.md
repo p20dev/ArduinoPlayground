@@ -1,5 +1,7 @@
 # Keyestudio KS0033 analog temperatursensor
 
+![Keyestudio KS0033 analog temperatursensor](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

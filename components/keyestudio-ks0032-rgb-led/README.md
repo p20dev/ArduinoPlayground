@@ -1,5 +1,7 @@
 # Keyestudio KS0032 RGB LED-modul
 
+![Keyestudio KS0032 RGB LED-modul](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

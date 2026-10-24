@@ -1,5 +1,7 @@
 # Keyes KE2054 laser-emittermodul
 
+![Keyes KE2054 laser-emittermodul](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

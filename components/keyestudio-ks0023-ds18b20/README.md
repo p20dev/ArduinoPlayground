@@ -1,5 +1,7 @@
 # Keyestudio KS0023 DS18B20-temperatursensor
 
+![Keyestudio KS0023 DS18B20-temperatursensor](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

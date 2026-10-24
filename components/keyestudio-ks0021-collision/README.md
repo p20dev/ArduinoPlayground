@@ -1,5 +1,7 @@
 # Keyestudio KS0021 collision-/endestopsensor
 
+![Keyestudio KS0021 collision-/endestopsensor](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

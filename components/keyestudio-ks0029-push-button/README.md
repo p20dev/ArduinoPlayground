@@ -1,5 +1,7 @@
 # Keyestudio KS0029 trykknapmodul
 
+![Keyestudio KS0029 trykknapmodul](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

@@ -1,5 +1,7 @@
 # Keyestudio KS0025 digital tiltsensor
 
+![Keyestudio KS0025 digital tiltsensor](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

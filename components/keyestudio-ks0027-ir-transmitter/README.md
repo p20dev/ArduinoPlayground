@@ -1,5 +1,7 @@
 # Keyestudio KS0027 digital IR-sender
 
+![Keyestudio KS0027 digital IR-sender](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

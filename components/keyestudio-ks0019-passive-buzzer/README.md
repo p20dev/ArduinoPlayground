@@ -1,5 +1,7 @@
 # Keyestudio KS0019 passiv buzzer
 
+![Keyestudio KS0019 passiv buzzer](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

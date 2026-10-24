@@ -1,5 +1,7 @@
 # Keyestudio KS0035 mikrofonmodul
 
+![Keyestudio KS0035 mikrofonmodul](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

@@ -1,5 +1,7 @@
 # Keyestudio KS0018 aktiv buzzer
 
+![Keyestudio KS0018 aktiv buzzer](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |

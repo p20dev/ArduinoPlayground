@@ -1,5 +1,7 @@
 # Keyestudio KS0038 reed switch
 
+![Keyestudio KS0038 reed switch](image.webp)
+
 ## Identifikation
 
 | Felt | Værdi |
