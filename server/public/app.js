@@ -126,18 +126,18 @@ async function refresh() {
     const dashboardRequest = { headers: { "X-Monitor-Request": "dashboard" } };
     const [healthResponse, payloadResponse, activityResponse] = await Promise.all([
       fetch("/api/health", dashboardRequest),
-      fetch("/api/payloads", dashboardRequest),
+      fetch("/api/payloads/count", dashboardRequest),
       fetch("/api/activity", dashboardRequest),
     ]);
     if (![healthResponse, payloadResponse, activityResponse].every((response) => response.ok)) {
       throw new Error("Serveren returnerede en fejl");
     }
-    const [health, payloads, activity] = await Promise.all([
+    const [health, payloadSummary, activity] = await Promise.all([
       healthResponse.json(), payloadResponse.json(), activityResponse.json(),
     ]);
     elements.health.textContent = `API online · ${new Date(health.timestamp).toLocaleTimeString("en-GB")}`;
     elements.health.className = "status online";
-    elements.payloadCount.textContent = payloads.length;
+    elements.payloadCount.textContent = payloadSummary.count;
     elements.apiCount.textContent = activity.filter((event) => event.source === "api").length;
     elements.serverCount.textContent = activity.filter((event) => event.source === "server").length;
     requests = activity.filter((event) => event.source === "api");

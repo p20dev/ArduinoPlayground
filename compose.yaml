@@ -18,6 +18,7 @@ services:
       API_BEARER_TOKEN: ${API_BEARER_TOKEN}
       PUBLIC_DOMAIN: ${PUBLIC_DOMAIN:-http://localhost}
       HOST_PORT: ${HOST_PORT:-8152}
+      DB_FILE: /data/payloads.sqlite
       DATA_FILE: /data/payloads.json
     volumes:
       - server-data:/data

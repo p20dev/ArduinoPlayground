@@ -23,9 +23,16 @@ Læsning er offentlig:
 ```text
 GET /api/health
 GET /api/activity
-GET /api/payloads
+GET /api/payloads?limit=100&offset=0
+GET /api/payloads/count
 GET /api/payloads/:id
 ```
+
+Payloads gemmes i SQLite med WAL-mode. Liste-endpointet returnerer de nyeste
+100 records som standard, understøtter `limit` (maks. 1000) og `offset`, og
+sender det samlede antal i `X-Total-Count`-headeren. En eksisterende
+`/data/payloads.json` migreres automatisk, når SQLite-databasen oprettes, og
+fjernes efter en vellykket migrering.
 
 Skrivning kræver `Authorization: Bearer <API_BEARER_TOKEN>`:
 

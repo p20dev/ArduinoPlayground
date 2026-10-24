@@ -1,14 +1,48 @@
 import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { DatabaseSync } from "node:sqlite";
 import express from "express";
 
 const port = 3000;
-const dataFile = process.env.DATA_FILE ?? "/data/payloads.json";
+const databaseFile = process.env.DB_FILE ?? "/data/payloads.sqlite";
+const legacyDataFile = process.env.DATA_FILE ?? "/data/payloads.json";
 const bearerToken = process.env.API_BEARER_TOKEN ?? "";
 const publicDir = path.resolve("public");
 const activity = [];
-let payloads = [];
+
+await fs.mkdir(path.dirname(databaseFile), { recursive: true });
+const databaseAlreadyExists = await fs.access(databaseFile).then(() => true, () => false);
+const database = new DatabaseSync(databaseFile);
+database.exec(`
+  PRAGMA journal_mode = WAL;
+  PRAGMA synchronous = NORMAL;
+  CREATE TABLE IF NOT EXISTS payloads (
+    id TEXT PRIMARY KEY,
+    topic TEXT NOT NULL,
+    payload_json TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    updated_at TEXT NOT NULL
+  );
+  CREATE INDEX IF NOT EXISTS payloads_created_at_idx ON payloads(created_at DESC);
+  CREATE INDEX IF NOT EXISTS payloads_topic_idx ON payloads(topic);
+`);
+
+const statements = {
+  count: database.prepare("SELECT COUNT(*) AS count FROM payloads"),
+  get: database.prepare("SELECT * FROM payloads WHERE id = ?"),
+  list: database.prepare("SELECT * FROM payloads ORDER BY created_at DESC LIMIT ? OFFSET ?"),
+  insert: database.prepare(`
+    INSERT INTO payloads (id, topic, payload_json, created_at, updated_at)
+    VALUES (?, ?, ?, ?, ?)
+  `),
+  update: database.prepare(`
+    UPDATE payloads
+    SET topic = ?, payload_json = ?, updated_at = ?
+    WHERE id = ?
+  `),
+  delete: database.prepare("DELETE FROM payloads WHERE id = ?"),
+};
 
 function record(source, action, detail = {}) {
   activity.unshift({
@@ -52,20 +86,49 @@ function isDashboardRequest(req) {
   }
 }
 
-async function loadPayloads() {
+function deserializePayload(row) {
+  if (!row) return null;
+  return {
+    id: row.id,
+    topic: row.topic,
+    payload: JSON.parse(row.payload_json),
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+async function migrateLegacyPayloads() {
+  if (databaseAlreadyExists) return;
   try {
-    payloads = JSON.parse(await fs.readFile(dataFile, "utf8"));
+    const payloads = JSON.parse(await fs.readFile(legacyDataFile, "utf8"));
+    if (Array.isArray(payloads) && payloads.length > 0) {
+      database.exec("BEGIN");
+      try {
+        for (const payload of payloads) {
+          statements.insert.run(
+            payload.id,
+            payload.topic,
+            JSON.stringify(payload.payload),
+            payload.createdAt,
+            payload.updatedAt,
+          );
+        }
+        database.exec("COMMIT");
+      } catch (error) {
+        database.exec("ROLLBACK");
+        throw error;
+      }
+    }
+    await fs.unlink(legacyDataFile);
   } catch (error) {
     if (error.code !== "ENOENT") throw error;
-    await persistPayloads();
   }
 }
 
-async function persistPayloads() {
-  await fs.mkdir(path.dirname(dataFile), { recursive: true });
-  const temporaryFile = `${dataFile}.tmp`;
-  await fs.writeFile(temporaryFile, JSON.stringify(payloads, null, 2));
-  await fs.rename(temporaryFile, dataFile);
+function parsePageInteger(value, fallback, maximum) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed) || parsed < 0) return fallback;
+  return Math.min(parsed, maximum);
 }
 
 function requireBearer(req, res, next) {
@@ -108,15 +171,26 @@ app.get("/api/health", (_req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
 
-app.get("/api/payloads", (_req, res) => res.json(payloads));
+app.get("/api/payloads", (req, res) => {
+  const limit = parsePageInteger(req.query.limit, 100, 1000);
+  const offset = parsePageInteger(req.query.offset, 0, Number.MAX_SAFE_INTEGER);
+  const total = statements.count.get().count;
+  const payloads = statements.list.all(limit, offset).map(deserializePayload);
+  res.set("X-Total-Count", String(total));
+  res.json(payloads);
+});
+
+app.get("/api/payloads/count", (_req, res) => {
+  res.json({ count: statements.count.get().count });
+});
 
 app.get("/api/payloads/:id", (req, res) => {
-  const payload = payloads.find((item) => item.id === req.params.id);
+  const payload = deserializePayload(statements.get.get(req.params.id));
   if (!payload) return res.status(404).json({ error: "Payload not found" });
   res.json(payload);
 });
 
-app.post("/api/payloads", requireBearer, async (req, res, next) => {
+app.post("/api/payloads", requireBearer, (req, res, next) => {
   try {
     const now = new Date().toISOString();
     const payload = {
@@ -126,8 +200,7 @@ app.post("/api/payloads", requireBearer, async (req, res, next) => {
       createdAt: now,
       updatedAt: now,
     };
-    payloads.push(payload);
-    await persistPayloads();
+    statements.insert.run(payload.id, payload.topic, JSON.stringify(payload.payload), now, now);
     res.locals.activityDetail = { payload };
     res.status(201).json(payload);
   } catch (error) {
@@ -135,30 +208,29 @@ app.post("/api/payloads", requireBearer, async (req, res, next) => {
   }
 });
 
-app.patch("/api/payloads/:id", requireBearer, async (req, res, next) => {
+app.patch("/api/payloads/:id", requireBearer, (req, res, next) => {
   try {
-    const index = payloads.findIndex((item) => item.id === req.params.id);
-    if (index === -1) return res.status(404).json({ error: "Payload not found" });
-    payloads[index] = {
-      ...payloads[index],
+    const existing = deserializePayload(statements.get.get(req.params.id));
+    if (!existing) return res.status(404).json({ error: "Payload not found" });
+    const payload = {
+      ...existing,
       ...(typeof req.body.topic === "string" ? { topic: req.body.topic } : {}),
       ...(Object.hasOwn(req.body, "payload") ? { payload: req.body.payload } : {}),
       updatedAt: new Date().toISOString(),
     };
-    await persistPayloads();
-    res.locals.activityDetail = { payload: payloads[index] };
-    res.json(payloads[index]);
+    statements.update.run(payload.topic, JSON.stringify(payload.payload), payload.updatedAt, payload.id);
+    res.locals.activityDetail = { payload };
+    res.json(payload);
   } catch (error) {
     next(error);
   }
 });
 
-app.delete("/api/payloads/:id", requireBearer, async (req, res, next) => {
+app.delete("/api/payloads/:id", requireBearer, (req, res, next) => {
   try {
-    const index = payloads.findIndex((item) => item.id === req.params.id);
-    if (index === -1) return res.status(404).json({ error: "Payload not found" });
-    const [removed] = payloads.splice(index, 1);
-    await persistPayloads();
+    const removed = deserializePayload(statements.get.get(req.params.id));
+    if (!removed) return res.status(404).json({ error: "Payload not found" });
+    statements.delete.run(req.params.id);
     res.locals.activityDetail = { payload: removed };
     res.status(204).end();
   } catch (error) {
@@ -177,5 +249,5 @@ app.use((error, req, res, _next) => {
   res.status(status).json({ error: error.message });
 });
 
-await loadPayloads();
+await migrateLegacyPayloads();
 app.listen(port, () => record("server", "started", { port }));
