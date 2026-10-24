@@ -9,6 +9,21 @@ og hver enhedsprofil linker til de sketches, hvor enheden bruges.
 
 ## Mine boards
 
+### Arduino Mega 2560 Rev3
+
+- **Primær MCU:** ATmega2560, 16 MHz 8-bit AVR
+- **USB-seriel:** ATmega16U2, observeret som `VID 2341 / PID 0042`
+- **Hukommelse:** 256 KB flash, 8 KB SRAM og 4 KB EEPROM
+- **Logikniveau:** 5 V
+- **I/O:** 54 digitale ben, 15 PWM-udgange og 16 analoge indgange
+- **Interfaces:** fire UARTs, I²C, SPI, USB-B, ICSP og eksterne interrupts
+- **Onboard:** bruger-LED på D13, reset-knap og DC-jack
+- **Trådløst og sensorer:** ingen indbyggede
+- **Arduino CLI FQBN:** `arduino:avr:mega`
+
+Boardet blev identificeret direkte via USB og Arduino CLI. Detaljer og kilder
+findes i [`boards/arduino-mega-2560`](boards/arduino-mega-2560/README.md).
+
 ### Arduino UNO R4 WiFi
 
 - **Primær MCU:** Renesas RA4M1, 48 MHz Arm Cortex-M4
@@ -67,6 +82,8 @@ eget stabile device-id:
 
 ```text
 boards/
+  arduino-mega-2560/
+    README.md
   arduino-uno-r4-minima/
     README.md
   arduino-uno-r4-wifi/
@@ -75,6 +92,9 @@ devices/
   lcd1602-i2c-pcf8574/
     README.md
 sketches/
+  arduino-mega-2560/
+    sos_blink/
+      sos_blink.ino
   arduino-uno-r4-minima/
     README.md
   arduino-uno-r4-wifi/
@@ -102,6 +122,11 @@ Pinout, adresseoplysninger, praktiske noter og den samlede sketch-liste findes i
 samlede enhedsindeks findes i [`devices/`](devices/README.md).
 
 ## Sketches
+
+### Arduino Mega 2560 Rev3
+
+- [`sos_blink`](sketches/arduino-mega-2560/sos_blink) – SOS i morsekode på den
+  indbyggede D13-LED
 
 ### Arduino UNO R4 WiFi
 
