@@ -51,6 +51,7 @@ kapacitiv touch-hardware, men ingen færdige touchflader på selve boardet.
 - [`led_matrix_demo`](../../sketches/arduino-uno-r4-wifi/led_matrix_demo)
 - [`led_matrix_scrolling_text`](../../sketches/arduino-uno-r4-wifi/led_matrix_scrolling_text)
 - [`wifi_matrix_message_board`](../../sketches/arduino-uno-r4-wifi/wifi_matrix_message_board)
+- [`lcd1602_i2c_demo`](../../sketches/arduino-uno-r4-wifi/lcd1602_i2c_demo)
 
 ## Kilder
 

@@ -88,6 +88,8 @@ dokumentation, forbindelser og biblioteker beskrives ved den enkelte sketch.
   – fast løbetekst på matrixen
 - [`wifi_matrix_message_board`](sketches/arduino-uno-r4-wifi/wifi_matrix_message_board)
   – browserstyret løbetekst via Wi-Fi
+- [`lcd1602_i2c_demo`](sketches/arduino-uno-r4-wifi/lcd1602_i2c_demo) – effekt-demo
+  til et eksternt 16×2 HD44780-display med PCF8574 I²C-backpack
 
 ### Arduino UNO R4 Minima
 
