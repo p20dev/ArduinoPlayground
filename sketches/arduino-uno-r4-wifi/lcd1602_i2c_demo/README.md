@@ -4,7 +4,7 @@ En effekt-demo til et HD44780-kompatibelt 16×2-tegndisplay med den almindelige
 PCF8574/PCF8574A I²C-backpack.
 
 Enhedens samlede hardwareprofil findes under
-[`devices/lcd1602-i2c-pcf8574`](../../../devices/lcd1602-i2c-pcf8574/README.md).
+[`components/lcd1602-i2c-pcf8574`](../../../components/lcd1602-i2c-pcf8574/README.md).
 
 Demoen viser:
 

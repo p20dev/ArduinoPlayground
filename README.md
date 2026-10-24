@@ -6,9 +6,9 @@ boards.
 Repoet indeholder desuden en Docker Compose-baseret server til REST-payloads
 og et aktivitetsdashboard. Se [`server/`](server/README.md).
 
-Repoet registrerer både Arduino-boards og de eksterne input/output-enheder, der
-tilsluttes dem. Boardprofiler ligger i `boards/`, enhedsprofiler i `devices/`,
-og hver enhedsprofil linker til de sketches, hvor enheden bruges.
+Repoet registrerer både Arduino-boards og de elektroniske komponenter, der
+tilsluttes dem. Boardprofiler ligger i `boards/`, komponentprofiler i
+`components/`, og hver komponentprofil linker til de sketches, hvor den bruges.
 
 ## Boards
 
@@ -87,8 +87,8 @@ i [`boards/uno-r3-compatible-ch340`](boards/uno-r3-compatible-ch340/README.md).
 
 ## Projektstruktur
 
-Boards og sketches bruger samme stabile board-id. Eksterne enheder har deres
-eget stabile device-id:
+Boards og sketches bruger samme stabile board-id. Komponenter har deres eget
+stabile component-id:
 
 ```text
 boards/
@@ -98,7 +98,7 @@ boards/
     README.md
   arduino-uno-r4-wifi/
     README.md
-devices/
+components/
   lcd1602-i2c-pcf8574/
     README.md
 sketches/
@@ -116,7 +116,15 @@ Hver sketch ligger i sin egen mappe, og mappen og den primære `.ino`-fil har
 samme navn, så den kan åbnes direkte i Arduino IDE. Board-specifik
 dokumentation, forbindelser og biblioteker beskrives ved den enkelte sketch.
 
-## Eksterne input/output-enheder
+## Komponenter
+
+### Keyestudio/Keyes-moduler
+
+De 19 identificerede moduler fra referencebilledet er registreret enkeltvis i
+[`components/`](components/README.md). Samlingen omfatter lys og lyd, temperatur-
+og lyssensorer, mekaniske kontakter, IR-kommunikation samt optisk pulsmåling.
+Hver profil angiver produkt-id, interface, forsyning, tilslutningshensyn og
+producentkilde.
 
 ### LCD1602 med PCF8574T I²C-backpack
 
@@ -128,8 +136,8 @@ dokumentation, forbindelser og biblioteker beskrives ved den enkelte sketch.
 - **Sketch:** [`lcd1602_i2c_demo`](sketches/arduino-uno-r4-wifi/lcd1602_i2c_demo)
 
 Pinout, adresseoplysninger, praktiske noter og den samlede sketch-liste findes i
-[`devices/lcd1602-i2c-pcf8574`](devices/lcd1602-i2c-pcf8574/README.md). Det
-samlede enhedsindeks findes i [`devices/`](devices/README.md).
+[`components/lcd1602-i2c-pcf8574`](components/lcd1602-i2c-pcf8574/README.md).
+Det samlede komponentindeks findes i [`components/`](components/README.md).
 
 ## Sketches
 
@@ -161,14 +169,14 @@ samlede enhedsindeks findes i [`devices/`](devices/README.md).
 - [`sos_blink`](sketches/uno-r3-compatible-ch340/sos_blink) – SOS i morsekode på den
   standardmæssige D13-LED
 
-## Tilføjelse af flere boards og enheder
+## Tilføjelse af flere boards og komponenter
 
 Nye boards får en profil under `boards/<board-id>/` og deres sketches placeres
 under `sketches/<board-id>/`. Board-id skrives med små bogstaver og bindestreger,
 eksempelvis `arduino-uno-r4-wifi`.
 
-Nye eksterne enheder får en profil under `devices/<device-id>/`. Profilen skal
+Nye komponenter får en profil under `components/<component-id>/`. Profilen skal
 beskrive identifikation, pinout og elektriske hensyn samt linke til alle
-sketches, der bruger enheden. Både dette README og `devices/README.md` holdes
-opdateret, når nye enheder tilføjes.
+sketches, der bruger komponenten. Både dette README og `components/README.md`
+holdes opdateret, når nye komponenter tilføjes.
 
