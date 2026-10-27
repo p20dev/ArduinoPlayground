@@ -118,6 +118,16 @@ dokumentation, forbindelser og biblioteker beskrives ved den enkelte sketch.
 
 ## Komponenter
 
+### HC-SR04 med RCWL-9610A
+
+- **Type:** 40 kHz ultralydsafstandssensor
+- **Typisk måleområde:** 2–400 cm
+- **Interfaces:** GPIO/Trig-Echo, I²C, UART og 1-Wire
+- **Forsyning:** 2,8–5,5 V
+
+Fotos, pinout og konfiguration af M1/M2 findes i
+[`components/hc-sr04-rcwl-9610a-ultrasonic`](components/hc-sr04-rcwl-9610a-ultrasonic/README.md).
+
 ### RFID-RC522 RFID-læser
 
 - **Type:** 13,56 MHz RFID-reader/writer med integreret antenne
