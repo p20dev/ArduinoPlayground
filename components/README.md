@@ -15,6 +15,7 @@ Hver fysisk komponenttype får sit eget stabile id og en mappe med:
 
 | Foto | Komponent | Type | Interface | Produkt-id | Sketches |
 | --- | --- | --- | --- | --- | --- |
+| <img src="mfrc522-rfid-reader/thumbnail.webp" width="120" alt="RFID-RC522 RFID-læser"> | [RFID-RC522 RFID-læser](mfrc522-rfid-reader/README.md) | Input/output/RFID | SPI | RFID-RC522 | – |
 | – | [LCD1602 med PCF8574T](lcd1602-i2c-pcf8574/README.md) | Output/display | I²C | – | [`lcd1602_i2c_demo`](../sketches/arduino-uno-r4-wifi/lcd1602_i2c_demo) |
 | <img src="keyestudio-ks0032-rgb-led/thumbnail.webp" width="120" alt="RGB LED"> | [RGB LED](keyestudio-ks0032-rgb-led/README.md) | Output/lys | Digital/PWM | KS0032 | – |
 | <img src="keyestudio-ks0035-microphone/thumbnail.webp" width="120" alt="Mikrofon"> | [Mikrofon](keyestudio-ks0035-microphone/README.md) | Input/lyd | Analog | KS0035 | – |

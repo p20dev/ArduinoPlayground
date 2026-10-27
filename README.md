@@ -118,6 +118,17 @@ dokumentation, forbindelser og biblioteker beskrives ved den enkelte sketch.
 
 ## Komponenter
 
+### RFID-RC522 RFID-læser
+
+- **Type:** 13,56 MHz RFID-reader/writer med integreret antenne
+- **Reader-IC:** NXP MFRC522
+- **Interface:** SPI
+- **Forsyning og logikniveau:** 3,3 V
+- **Understøttelse:** ISO/IEC 14443 A, MIFARE og NTAG
+
+Fotos, pinout og elektriske hensyn findes i
+[`components/mfrc522-rfid-reader`](components/mfrc522-rfid-reader/README.md).
+
 ### Keyestudio/Keyes-moduler
 
 De 19 identificerede moduler fra referencebilledet er registreret enkeltvis i
